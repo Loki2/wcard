@@ -22,7 +22,7 @@ var routes = [{
   },
   {
     path: "/places",
-    name: "ສະຖ່ານຈັດງານ",
+    name: "ສະຖານຈັດງານ",
     icon: "nc-icon nc-pin-3",
     component: Places,
     layout: "/admin"
@@ -35,7 +35,7 @@ var routes = [{
     layout: "/admin"
   },
   {
-    path: "/foodtypes",
+    path: "/foods ",
     name: "ປະເພດອາຫານ",
     icon: "nc-icon nc-tile-56",
     component: Foodtypes,

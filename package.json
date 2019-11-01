@@ -16,10 +16,12 @@
     "react-chartjs-2": "2.7.6",
     "react-dom": "16.8.6",
     "react-google-maps": "9.4.5",
+    "react-html-table-to-excel": "^2.0.0",
     "react-notification-alert": "0.0.12",
     "react-router": "5.0.0",
     "react-router-dom": "5.0.0",
     "react-scripts": "3.0.1",
+    "react-table": "^6.10.3",
     "reactstrap": "8.0.0"
   },
   "scripts": {

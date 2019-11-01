@@ -1,56 +1,83 @@
 import React from "react";
-import { Table } from "reactstrap";
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
-// import axios from "axios";
+import Axios from "axios";
+import ReactTable from 'react-table';
+import "react-table/react-table.css";
 
 
 class Tables extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      foods:[]
+    }
+  }
+  componentDidMount(){
+    Axios.get('/foods').then( res => {
+      this.setState({ foods: res.data })
+    })
+  }
   render() {
+    const columns = [
+      {
+        Header:'ລະຫັດ',
+        accessor: 'foodtypeId',
+        style: {
+          textAlign:"right" 
+        },
+        width: 80,
+        maxWith: 80,
+        minWith: 80
+      },
+      {
+        Header:'ປະເພດອາຫານ',
+        accessor: 'title',
+        sortable: false,
+        filterable: false
+      },
+      {
+        Header:'ຄິດເປັນ %',
+        accessor: 'count',
+        sortable: false,
+        filterable: false
+      },
+      {
+        Header: "Actions",
+        Cell: props =>{
+          return(
+            <div>
+            <button style={{backgroundColor:"red", color:"#fefefe"}}
+            onClick={() => {
+             this.deleteRow(props.original.id)
+            }}
+            >ລຶບ</button>
+            <button style={{backgroundColor:"grey", color:"#fefefe"}}
+            onClick={() => {
+             this.updateRow(props.original.id)
+            }}
+            >ແກ່ໄຂ</button>
+            </div>
+          )
+        },
+        sortable: false,
+        filterable: false,
+        width: 100,
+        maxWith: 100,
+        minWith: 100
+      }
+    ]
     return (
       <>
         <div className="content">
-        <Table responsive>
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>ປະເພດອາຫານໃນງານ</th>
-                <th>ຈຳນວນ %</th>
-                <td>Edit</td>
-                <td>Del</td>
-                
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-                <td>Table cell</td>
-              </tr>
-            </tbody>
-          </Table>
+            <ReactTable
+            columns = {columns}
+            data = {this.state.foods}
+            filterable
+            defaultPageSize = {15}
+            noDataText = {"ກະລຸນາລໍຖ້າ.....!"}
+            >
 
 
-          <Pagination aria-label="Page navigation example">
-          <PaginationItem>
-              <PaginationLink first href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink previous href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#">
-                1
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink next href="#" />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink last href="#" />
-            </PaginationItem>
-          </Pagination>
+            </ReactTable>
         </div>
       </>
     );
