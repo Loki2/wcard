@@ -31,37 +31,37 @@ exports.getAllClients = (req, res) =>{
             res.status(500).json({ error: err.code });
         });
 }
-exports.getCountClient = ( req, res ) => {
-    let age_diff = [];
-    db.collection('client_data').get().where(
-        'age_diff', '==', 'ອາຍຸເທົ່າກັບ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ' && 
-        'age_diff', '==', 'ອາຍຸນ້ອຍກວ່າ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ' && 
-        'age_diff', '==', 'ອາຍຸຫຼາຍກວ່າ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ')
-    .then().doc().count(age_diff).res(json);
-}
+// exports.getCountClient = ( req, res ) => {
+//     let age_diff = [];
+//     db.collection('client_data').get().where(
+//         'age_diff', '==', 'ອາຍຸເທົ່າກັບ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ' && 
+//         'age_diff', '==', 'ອາຍຸນ້ອຍກວ່າ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ' && 
+//         'age_diff', '==', 'ອາຍຸຫຼາຍກວ່າ ຄູ່ເຈົ້າບ່າວເຈົ້າສາວ')
+//     .then().doc().count(age_diff).res(json);
+// }
 
 
-export const clientWriteListener = 
-    functions.firestore.document('client_data/{clientUid}')
-    .onWrite((change, context) => {
+// export const clientWriteListener = 
+//     functions.firestore.document('client_data/{clientUid}')
+//     .onWrite((change, context) => {
 
-    if (!change.before.exists) {
-        // New document Created : add one to count
+//     if (!change.before.exists) {
+//         // New document Created : add one to count
 
-        db.doc(docRef).update({numberOfDocs: FieldValue.increment(1)});
+//         db.doc(docRef).update({numberOfDocs: FieldValue.increment(1)});
 
-    } else if (change.before.exists && change.after.exists) {
-        // Updating existing document : Do nothing
+//     } else if (change.before.exists && change.after.exists) {
+//         // Updating existing document : Do nothing
 
-    } else if (!change.after.exists) {
-        // Deleting document : subtract one from count
+//     } else if (!change.after.exists) {
+//         // Deleting document : subtract one from count
 
-        db.doc(docRef).update({numberOfDocs: FieldValue.increment(-1)});
+//         db.doc(docRef).update({numberOfDocs: FieldValue.increment(-1)});
 
-    }
+//     }
 
-return;
-});
+// return;
+// });
 //Export Food Types to index
 exports.getAllFoods = (req, res) => {
     db.collection('food_types')

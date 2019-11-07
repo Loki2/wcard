@@ -75,8 +75,6 @@ class Tables extends React.Component {
             defaultPageSize = {15}
             noDataText = {"ກະລຸນາລໍຖ້າ.....!"}
             >
-
-
             </ReactTable>
         </div>
       </>
